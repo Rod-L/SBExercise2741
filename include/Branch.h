@@ -5,10 +5,10 @@
 
 class Branch{
     Branch* parent;
-    std::vector<Branch*>* children = new std::vector<Branch*>;
+    std::vector<Branch> children;
     std::string settlerName;
-    int branchNumber = 1;
-    int level = 0;
+    int branchNumber;
+    int level;
 
     void clear_parent();
 
@@ -17,15 +17,11 @@ class Branch{
 public:
     explicit Branch(int inBranchNumber = 1, int inLevel = 0, Branch* inParent = nullptr);
 
-    ~Branch();
-
     std::string representation() const;
-
-    Branch* get_parent() const;
 
     Branch* get_top_parent(int inLevel = 0) const;
 
-    const std::vector<Branch*>* get_children() const;
+    const std::vector<Branch>& get_children() const;
 
     void grow_children(int amount);
 

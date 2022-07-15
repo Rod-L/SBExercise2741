@@ -3,7 +3,7 @@
 #include "Branch.h"
 
 int main() {
-    std::cout << "How many trees are in forest?" << std::endl;
+    std::cout << "How many trees are in the forest?" << std::endl;
     int trunksCount;
     std::cin >> trunksCount;
 
@@ -14,8 +14,8 @@ int main() {
         trunk->grow_children(rand() % 3 + 3);
         trees.push_back(trunk);
 
-        for (Branch* bigBranch : *trunk->get_children()) {
-            bigBranch->grow_children(rand() % 2 + 2);
+        for (const Branch& bigBranch : trunk->get_children()) {
+            const_cast<Branch&>(bigBranch).grow_children(rand() % 2 + 2);;
         }
     }
 
@@ -42,7 +42,9 @@ int main() {
         } else {
             std::cout << elfName << " lives at " << branch->representation() << std::endl;
             std::cout << "His neighbours are:" << std::endl;
-            branch->get_top_parent(1)->list_neighbours();
+            branch->get_top_parent(1)->list_neighbours(branch);
         }
     }
+
+    for (auto trunk : trees) delete trunk;
 }
